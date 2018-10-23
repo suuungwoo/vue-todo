@@ -2,7 +2,7 @@
   <div class="hello">
     <myheader/>
     <p v-if="msg.length > 0">{{ msg }}</p>
-    <p v-else> no texts</p>
+    <p v-else>no texts</p>
       <button @click="addTodo()">add todo</button>
       <button @click="removeTodo()">delete finished todos</button>
       <p>input: <input type="text" v-model="newTodo"> </p>
@@ -10,9 +10,9 @@
      <div class="todo-list">
        <label class="todo-list__item" v-for="todo in todos" :key="todo.id" v-bind:class=" {'todo-list__item--checked': todo.done} ">
          <input type="checkbox" v-model="todo.done">
-         <input type="checkbox" v-model="todo.editing">
          <input v-if="todo.editing" v-model="todo.text" @keyup.enter="todo.editing = !todo.editing">
         <span v-else>{{todo.text}}</span>
+         <input type="button" @click="todo.editing = !todo.editing">
        </label>
     </div>
     <input type="text" v-model="msg">
