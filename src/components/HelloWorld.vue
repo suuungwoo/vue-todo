@@ -1,60 +1,47 @@
 <template>
   <div class="hello">
-    <myheader/>
-    <p v-if="msg.length > 0">{{ msg }}</p>
-    <p v-else>no texts</p>
-      <button @click="addTodo()">add todo</button>
-      <button @click="removeTodo()">delete finished todos</button>
-      <p>input: <input type="text" v-model="newTodo"> </p>
-      <p>todo: {{newTodo}} </p>
-     <div class="todo-list">
-       <label class="todo-list__item" v-for="todo in todos" :key="todo.id" v-bind:class=" {'todo-list__item--checked': todo.done} ">
-         <input type="checkbox" v-model="todo.done">
-         <input v-if="todo.editing" v-model="todo.text" @keyup.enter="todo.editing = !todo.editing">
+    <button @click="addTodo()">add todo</button>
+    <button @click="removeTodo()">delete finished todos</button>
+    <!-- <p>input: <input type="text" v-model="newTodo"> </p> -->
+    <p>todo: {{newTodo}} </p>
+    <div class="todo-list">
+      <label class="todo-list__item" v-for="todo in todos" :key="todo.id" v-bind:class=" {'todo-list__item--checked': todo.done} ">
+        <!-- <input type="checkbox" v-model="todo.editing">
+        <input v-if="todo.editing" v-model="todo.text" @keyup.enter="todo.editing = !todo.editing">
         <span v-else>{{todo.text}}</span>
-         <input type="button" @click="todo.editing = !todo.editing">
-       </label>
+        <input type="checkbox" v-model="todo.done"> -->
+      </label>
     </div>
-    <input type="text" v-model="msg">
-    <button @click="clear()">clear</button>
+
+    <p>{{myMessage}}</p>
+    <input type="text" v-model="text">
+    <!-- <button @click="handleUpdateMsg">Update</button> -->
   </div>
 </template>
 
 <script>
-import myheader from './myheader.vue';
-
 
 export default {
   name: 'HelloWorld',
-  components: {
-    myheader,
-  },
   data() {
     return {
-      todos: [
-        {
-          id: 1, text: 'vue-router', done: false, editing: false,
-        },
-        {
-          id: 2, text: 'vuex', done: false, editing: false,
-        },
-        {
-          id: 3, text: 'vue-loader', done: false, editing: false,
-        },
-        {
-          id: 4, text: 'awesome-vue', done: true, editing: false,
-        },
-      ],
+      todos: [],
       newTodo: '',
+      text: '',
     };
   },
   props: {
-    msg: String,
+    myMessage: String,
+  },
+  updated() {
+    this.$emit('input', {
+      text: this.text,
+    });
+  },
+  mounted() {
+    this.text = this.value.text;
   },
   methods: {
-    clear() {
-      this.msg = '';
-    },
     addTodo() {
       const text = this.newTodo && this.newTodo.trim();
       if (!text) {
