@@ -9,8 +9,10 @@
     </form>
     <div class="task-list">
       <label class="task-list__item" v-for="todo in todos" :key="todo.id">
-        <input type="checkbox" v-model="todo.done"><button>EDIT</button>{{ todo.text }}
-      </label>
+        <input type="checkbox" v-model="todo.done">
+        <input type="checkbox" v-model="todo.editing">
+        <input v-if="todo.editing" v-model="todo.text" @keyup.enter="todo.editing = !todo.editing">
+        <span v-else>{{ todo.text }}</span> </label>
     </div>
   </div>
 </template>
@@ -24,10 +26,18 @@ export default {
   data() {
     return {
       todos: [
-        { id: 1, text: 'vue-router', done: false },
-        { id: 2, text: 'vuex', done: false },
-        { id: 3, text: 'vue-loader', done: false },
-        { id: 4, text: 'awesome-vue', done: true },
+        {
+          id: 1, text: 'vue-router', done: false, editing: false,
+        },
+        {
+          id: 2, text: 'vuex', done: false, editing: false,
+        },
+        {
+          id: 3, text: 'vue-loader', done: false, editing: false,
+        },
+        {
+          id: 4, text: 'awesome-vue', done: true, editing: false,
+        },
       ],
       newTodo: '',
     };
@@ -41,6 +51,7 @@ export default {
       this.todos.push({
         text,
         done: false,
+        editing: false,
       });
       this.newTodo = '';
     },
