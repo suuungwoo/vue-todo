@@ -1,21 +1,21 @@
 <template>
   <div class="hello">
-    <button @click="addTodo()">add todo</button>
-    <button @click="removeTodo()">delete finished todos</button>
-    <!-- <p>input: <input type="text" v-model="newTodo"> </p> -->
+    <button @click="addTodo()">Todoを追加</button>
+    <button @click="removeTodo()">完了したTodoを一括削除</button>
+    <p>input: <input type="text" v-model="newTodo"> </p>
     <p>todo: {{newTodo}} </p>
     <div class="todo-list">
-      <label class="todo-list__item" v-for="todo in todos" :key="todo.id" v-bind:class=" {'todo-list__item--checked': todo.done} ">
-        <!-- <input type="checkbox" v-model="todo.editing">
+      <label class="todo-list__item" v-for="todo in todos" :key="todo.id" :class="{'todo-list__item--checked': todo.done}">
+        <input type="checkbox" v-model="todo.editing">
         <input v-if="todo.editing" v-model="todo.text" @keyup.enter="todo.editing = !todo.editing">
         <span v-else>{{todo.text}}</span>
-        <input type="checkbox" v-model="todo.done"> -->
+        <input type="checkbox" v-model="todo.done">
       </label>
     </div>
 
     <p>{{myMessage}}</p>
     <input type="text" v-model="text">
-    <!-- <button @click="handleUpdateMsg">Update</button> -->
+    <button @click="handleUpdateMsg">Update</button>
   </div>
 </template>
 
