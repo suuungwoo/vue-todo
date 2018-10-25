@@ -2,13 +2,13 @@
   <div class="hello">
     <h1>{{ msg }}</h1>
     <form>
-      <button>ADD TASK</button>
+      <button v-on:click="addTodo()">ADD TASK</button>
       <button>DELETE FINISHED TASKS</button>
-      <p>input: <input type="text"></p>
-      <p>task:</p>
+      <p>input: <input type="text" v-model="newTodo"></p>
+      <p>task: {{ newTodo }}</p>
     </form>
     <div class="task-list">
-      <label class="task-list__item" v-for="todo in todos">
+      <label class="task-list__item" v-for="todo in todos" :key="todo.id">
         <input type="checkbox"><button>EDIT</button>{{ todo.text }}
       </label>
     </div>
@@ -29,7 +29,21 @@ export default {
         { id: 3, text: 'vue-loader', done: false },
         { id: 4, text: 'awesome-vue', done: true },
       ],
+      newTodo: '',
     };
+  },
+  methods: {
+    addTodo() {
+      const text = this.newTodo && this.newTodo.trim();
+      if (!text) {
+        return;
+      }
+      this.todos.push({
+        text,
+        done: false,
+      });
+      this.newTodo = '';
+    },
   },
 };
 </script>
