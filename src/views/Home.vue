@@ -4,6 +4,9 @@
     <!-- <enhanced :my-message="myMessage" @update-msg="updateMsg" /> -->
     <HelloWorld @update-msg="updateMsg" v-model="myMessage" />
     {{myMessage}}
+    <div>
+      {{reversedMessage}}
+    </div>
   </div>
 
 </template>
@@ -27,11 +30,17 @@ export default {
       myMessage: {
         text: '初期値',
       },
+      message: 'Hello',
     };
   },
   methods: {
     updateMsg(newMsg) {
       this.myMessage = newMsg;
+    },
+  },
+  computed: {
+    reversedMessage() {
+      return this.message.split('').reverse().join('');
     },
   },
 
