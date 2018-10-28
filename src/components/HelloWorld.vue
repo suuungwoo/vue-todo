@@ -1,14 +1,19 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
-    <form>
+    <form @submit.prevent>
       <button @click="addTodo()">ADD TASK</button>
       <button @click="removeTodo()">DELETE FINISHED TASKS</button>
       <p>input: <input type="text" v-model="newTodo"></p>
       <p>task: {{ newTodo }}</p>
     </form>
     <div class="task-list">
-      <label class="task-list__item" v-for="todo in todos" :key="todo.id" :class="{ 'task-list__item--checked': todo.done }">
+      <label
+      class="task-list__item"
+      v-for="(todo, index) in todos"
+      :key="index"
+      :class="{ 'task-list__item--checked': todo.done }"
+      >
         <input type="checkbox" v-model="todo.done">
         <input type="checkbox" v-model="todo.editing">
         <input v-if="todo.editing" v-model="todo.text" @keyup.enter="todo.editing = !todo.editing">
@@ -28,16 +33,16 @@ export default {
     return {
       todos: [
         {
-          id: 1, text: 'vue-router', done: false, editing: false,
+          text: 'vue-router', done: false, editing: false,
         },
         {
-          id: 2, text: 'vuex', done: false, editing: false,
+          text: 'vuex', done: false, editing: false,
         },
         {
-          id: 3, text: 'vue-loader', done: false, editing: false,
+          text: 'vue-loader', done: false, editing: false,
         },
         {
-          id: 4, text: 'awesome-vue', done: true, editing: false,
+          text: 'awesome-vue', done: true, editing: false,
         },
       ],
       newTodo: '',
