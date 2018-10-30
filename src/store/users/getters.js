@@ -1,7 +1,7 @@
 export default {
   getUsers: state => state.users,
   getUser: state => (id) => {
-    const user = state.users.filter(u => u.id === id);
-    return user;
+    const user = state.users.filter(u => u.id === Number(id));
+    return user[0];
   },
 };

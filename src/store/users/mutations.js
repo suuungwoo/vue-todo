@@ -7,4 +7,3 @@ export default {
     state.users.push(payload);
   },
 };
-

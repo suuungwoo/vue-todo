@@ -3,9 +3,8 @@
     <HelloWorld msg="Welcome to Your Vue.js App" />
 
     <form @submit.prevent="addUser(form)" style="padding: 32px 20px">
-      ID: <input type="text">
-      名前: <input type="text">
-      年齢: <input type="text">
+      名前: <input type="text" v-model.trim="form.name">
+      年齢: <input type="text" v-model.trim="form.age">
       <input type="submit">
     </form>
 
@@ -41,7 +40,6 @@ export default {
     return {
       users: '',
       form: {
-        id: '',
         name: '',
         age: '',
       },
@@ -61,8 +59,6 @@ export default {
   // vueインスタンスが作成された時に、発火します。
   created() {
     this.users = this.getUsers; // 下の書き方でもかけますが、オススメできません。
-  },
-  updated() {
   },
 
   // methodsはeventや処理をする関数を定義します。
